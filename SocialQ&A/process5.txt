@@ -1,0 +1,104 @@
+<%@ include file="uheader.jsp"%>
+<%@ page  import="java.sql.*"  import="java.util.*"  import="java.io.*" import="databaseconnection.*" import="CT.*" import="javax.swing.JOptionPane"%>
+<%
+String key=null;
+String line=null;
+String[] words=null;
+BufferedReader bw=null; 
+File f =null;
+%>
+
+<style>
+table {
+    width: 100%;
+    display:block;
+	border: 1;
+}
+thead {
+    display: inline-block;
+    width: 100%;
+    height: 420px;
+} 
+tbody {
+    height: 800px;
+    display: inline-block;
+    width: 100%;
+    overflow: auto;
+}
+</style>
+
+<%
+ Set<String> set = (Set)session.getAttribute("set");
+ double pos=0.0;
+ double neg=0.0;
+String[] ws=null;
+%>
+<h1> </h1>
+<table border cellpadding="10" align="center" >
+<%
+	for(String ss:set){
+%>
+<tr><th>Tweet<th>Words
+
+<tr><td width="30%"><%=ss%>
+
+<td><%
+ws=ss.split("\\s+");
+for(String s:ws)
+	out.println("["+s+"]");
+%>
+<tr><th>NGrams<th>Expanded Words
+
+<tr><td>
+
+<%
+%><u><font size="" color="#ffff00">1 Gram</font></u><br><%
+for (String ngram : NGram.ngrams(1, ss))
+	                out.println(ngram+"<br>");
+
+%>
+
+<br><u><font size="" color="#ffff00">2 Gram</font></u><br><%
+for (String ngram : NGram.ngrams(2, ss))
+	                out.println(ngram+"<br>");
+%><br><u><font size="" color="#ffff00">3 Gram</font></u><br><%
+
+for (String ngram : NGram.ngrams(3, ss))
+	                out.println(ngram+"<br>");
+
+	
+
+
+
+%>
+<td>
+<%
+for (String ngram : NGram.ngrams(1, ss)){
+key=ngram;
+ f = new File("E://WORDS/"+Character.toString(key.charAt(0))+"/"+key+"/"+key+".txt");
+if(f.exists())
+{
+bw=new BufferedReader (new FileReader(f));
+
+line=bw.readLine();
+line=line.trim();
+int c=0;
+	out.print(line+" <br>");
+
+}
+
+
+}
+}
+%>
+
+</table>
+<br><br>
+<form method="post" action="process6.jsp">
+	<input type="submit" value="Next">
+</form>
+<br>                                          
+<br>                                          
+<br>                                          
+<br>
+<%@ include file="footer.jsp"%>

@@ -1,0 +1,8 @@
+	<header>
+												<h2>No Sidebar</h2>
+												<p>Semper amet scelerisque metus faucibus morbi congue mattis</p>
+											</header>
+
+
+
+												<a href="#" class="button alt">Learn more</a>
